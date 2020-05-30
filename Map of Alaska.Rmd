@@ -1,0 +1,33 @@
+---
+title: "Data-Product_1"
+author: "Seema"
+date: "May 30, 2020"
+output: html_document
+---
+# Instructions
+Create a web page using R Markdown that features a map created with Leaflet.
+
+Host your webpage on either GitHub Pages, RPubs, or NeoCities.
+
+```{r, echo = TRUE, warning=FALSE, message=FALSE}
+
+library(leaflet)
+library(dplyr)
+library(ggmap)
+library(rgdal)
+library(htmltools)
+library(mapview)
+library(htmlwidgets)
+
+#Load counties shape file.
+counties <- readOGR("~/GitHub/Data-Products/data/tl_2013_02_cousub/tl_2013_02_cousub.shp")
+#Filter for Alaska
+ak_counties <- subset(counties, counties$STATEFP == "02")
+
+m <- leaflet() %>%
+  addTiles() %>%
+  setView(lng = -149.4937, lat = 64.2008, zoom = 4) %>%
+  addPolygons(data = ak_counties)
+m
+```
+
